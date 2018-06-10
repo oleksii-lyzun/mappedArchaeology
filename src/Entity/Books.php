@@ -19,7 +19,12 @@ class Books
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $author;
+    private $author_lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $author_firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -46,14 +51,26 @@ class Books
         return $this->id;
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor_lastName(): ?string
     {
-        return $this->author;
+        return $this->author_lastName;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor_lastName(string $author_lastName): self
     {
-        $this->author = $author;
+        $this->author_lastName = $author_lastName;
+
+        return $this;
+    }
+
+    public function getAuthor_firstName(): ?string
+    {
+        return $this->author_firstName;
+    }
+
+    public function setAuthor_firsName(string $author_firstName): self
+    {
+        $this->author_firstName = $author_firstName;
 
         return $this;
     }
