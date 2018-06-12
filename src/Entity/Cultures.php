@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +23,16 @@ class Cultures
      */
     private $culture;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Periods", inversedBy="cultures")
+     */
+    private $period;
+
+    public function __construct()
+    {
+        $this->period = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -34,6 +46,32 @@ class Cultures
     public function setCulture(string $culture): self
     {
         $this->culture = $culture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Periods[]
+     */
+    public function getPeriod(): Collection
+    {
+        return $this->period;
+    }
+
+    public function addPeriod(Periods $period): self
+    {
+        if (!$this->period->contains($period)) {
+            $this->period[] = $period;
+        }
+
+        return $this;
+    }
+
+    public function removePeriod(Periods $period): self
+    {
+        if ($this->period->contains($period)) {
+            $this->period->removeElement($period);
+        }
 
         return $this;
     }

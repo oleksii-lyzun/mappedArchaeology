@@ -51,6 +51,16 @@ class Sites
      */
     private $is_published;
 
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=5, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="decimal", precision=7, scale=5, nullable=true)
+     */
+    private $longitude;
+
     public function getId()
     {
         return $this->id;
@@ -136,6 +146,30 @@ class Sites
     public function setIsPublished(bool $is_published): self
     {
         $this->is_published = $is_published;
+
+        return $this;
+    }
+
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude($latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude($longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }
