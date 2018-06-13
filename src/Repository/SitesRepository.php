@@ -47,4 +47,22 @@ class SitesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAllSitesWithTimes()
+    {
+        $em = $this->getEntityManager();
+        $db = $em->createQueryBuilder();
+
+        $db
+            ->select(array('s', 'e'))
+            ->from('App:Sites', 's')
+            ->leftJoin('s.era', 'e');
+
+        $query = $db->getQuery();
+        $result = $query->getResult();
+
+        return $result;
+
+
+    }
 }

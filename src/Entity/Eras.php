@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ErasRepository")
@@ -28,9 +29,15 @@ class Eras
      */
     private $periods;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sites", mappedBy="era")
+     */
+    private $site;
+
     public function __construct()
     {
         $this->periods = new ArrayCollection();
+        $this->site = new ArrayCollection();
     }
 
     public function getId()
@@ -76,6 +83,38 @@ class Eras
             if ($period->getEra() === $this) {
                 $period->setEra(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->era;
+    }
+
+    /**
+     * @return Collection|Sites[]
+     */
+    public function getSite(): Collection
+    {
+        return $this->site;
+    }
+
+    public function addSite(Sites $site): self
+    {
+        if (!$this->site->contains($site)) {
+            $this->site[] = $site;
+            $site->addEra($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSite(Sites $site): self
+    {
+        if ($this->site->contains($site)) {
+            $this->site->removeElement($site);
+            $site->removeEra($this);
         }
 
         return $this;

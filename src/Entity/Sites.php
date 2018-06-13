@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SitesRepository")
@@ -60,6 +63,34 @@ class Sites
      * @ORM\Column(type="decimal", precision=7, scale=5, nullable=true)
      */
     private $longitude;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $height;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Cultures", inversedBy="site")
+     */
+    private $culture;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Periods", inversedBy="site")
+     */
+    private $period;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Eras", inversedBy="site")
+     * @JoinTable(name="sites_eras")
+     */
+    private $era;
+
+    public function __construct()
+    {
+        $this->culture = new ArrayCollection();
+        $this->period = new ArrayCollection();
+        $this->era = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -170,6 +201,96 @@ class Sites
     public function setLongitude($longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    public function setHeight(?int $height): self
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cultures[]
+     */
+    public function getCulture(): Collection
+    {
+        return $this->culture;
+    }
+
+    public function addCulture(Cultures $culture): self
+    {
+        if (!$this->culture->contains($culture)) {
+            $this->culture[] = $culture;
+        }
+
+        return $this;
+    }
+
+    public function removeCulture(Cultures $culture): self
+    {
+        if ($this->culture->contains($culture)) {
+            $this->culture->removeElement($culture);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Periods[]
+     */
+    public function getPeriod(): Collection
+    {
+        return $this->period;
+    }
+
+    public function addPeriod(Periods $period): self
+    {
+        if (!$this->period->contains($period)) {
+            $this->period[] = $period;
+        }
+
+        return $this;
+    }
+
+    public function removePeriod(Periods $period): self
+    {
+        if ($this->period->contains($period)) {
+            $this->period->removeElement($period);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Eras[]
+     */
+    public function getEra(): Collection
+    {
+        return $this->era;
+    }
+
+    public function addEra(Eras $era): self
+    {
+        if (!$this->era->contains($era)) {
+            $this->era[] = $era;
+        }
+
+        return $this;
+    }
+
+    public function removeEra(Eras $era): self
+    {
+        if ($this->era->contains($era)) {
+            $this->era->removeElement($era);
+        }
 
         return $this;
     }

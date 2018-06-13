@@ -34,9 +34,15 @@ class Periods
      */
     private $cultures;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sites", mappedBy="period")
+     */
+    private $site;
+
     public function __construct()
     {
         $this->cultures = new ArrayCollection();
+        $this->site = new ArrayCollection();
     }
 
     public function getId()
@@ -91,6 +97,38 @@ class Periods
         if ($this->cultures->contains($culture)) {
             $this->cultures->removeElement($culture);
             $culture->removePeriod($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->period;
+    }
+
+    /**
+     * @return Collection|Sites[]
+     */
+    public function getSite(): Collection
+    {
+        return $this->site;
+    }
+
+    public function addSite(Sites $site): self
+    {
+        if (!$this->site->contains($site)) {
+            $this->site[] = $site;
+            $site->addPeriod($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSite(Sites $site): self
+    {
+        if ($this->site->contains($site)) {
+            $this->site->removeElement($site);
+            $site->removePeriod($this);
         }
 
         return $this;

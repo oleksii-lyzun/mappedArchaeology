@@ -28,9 +28,15 @@ class Cultures
      */
     private $period;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sites", mappedBy="culture")
+     */
+    private $site;
+
     public function __construct()
     {
         $this->period = new ArrayCollection();
+        $this->site = new ArrayCollection();
     }
 
     public function getId()
@@ -71,6 +77,38 @@ class Cultures
     {
         if ($this->period->contains($period)) {
             $this->period->removeElement($period);
+        }
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->culture;
+    }
+
+    /**
+     * @return Collection|Sites[]
+     */
+    public function getSite(): Collection
+    {
+        return $this->site;
+    }
+
+    public function addSite(Sites $site): self
+    {
+        if (!$this->site->contains($site)) {
+            $this->site[] = $site;
+            $site->addCulture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSite(Sites $site): self
+    {
+        if ($this->site->contains($site)) {
+            $this->site->removeElement($site);
+            $site->removeCulture($this);
         }
 
         return $this;
