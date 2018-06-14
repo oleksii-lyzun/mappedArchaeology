@@ -15,14 +15,13 @@ class MapsController extends Controller
     public function index()
     {
         $repository = $this->getDoctrine()->getRepository(Sites::class);
-        //$allSites = $repository->find(1);
-        ///$allEras = $allSites->getEra()->getValues();
         $allSites = $repository->getAllSitesWithTimes();
-        dump($allSites);
-
+        //dump($allSites);
+        $sites = json_encode($allSites, JSON_UNESCAPED_UNICODE);
 
         return $this->render('maps/index.html.twig', [
             'controller_name' => 'MapsController',
+            'sites' => $sites,
         ]);
     }
 }

@@ -294,4 +294,8 @@ class Sites
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->site_name_en;
+    }
 }

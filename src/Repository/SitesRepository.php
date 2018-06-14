@@ -54,14 +54,51 @@ class SitesRepository extends ServiceEntityRepository
         $db = $em->createQueryBuilder();
 
         $db
-            ->select(array('s', 'e'))
+            ->select(array('s', 'e', 'p', 'c'))
             ->from('App:Sites', 's')
-            ->leftJoin('s.era', 'e');
+            ->leftJoin('s.era', 'e')
+            ->leftJoin('s.period', 'p')
+            ->leftJoin('s.culture', 'c');
 
         $query = $db->getQuery();
         $result = $query->getResult();
 
-        return $result;
+        $resultArray = [];
+
+        for($i = 0; $i < count($result); $i++)
+        {
+            $culturesToMap = $result[$i]->getCulture()->getSnapshot();
+
+            function getTimesProperly($timeArray)
+            {
+                $result = [];
+
+                for($i = 0; $i < count($timeArray); $i++)
+                {
+                    $result[] = $timeArray[$i]->getCulture();
+                }
+
+                return $result;
+            }
+
+            $resultArray[] = [
+                'nameUa' => $result[$i]->getSiteNameUa(),
+                'nameEn' => $result[$i]->getSiteNameEn(),
+                'descUa' => $result[$i]->getSiteShDescUa(),
+                'descEn' => $result[$i]->getSiteShDescEn(),
+                'isPublished' => $result[$i]->getIsPublished(),
+                'getLatitude' => $result[$i]->getLatitude(),
+                'getLongitude' => $result[$i]->getLongitude(),
+                'getHeight' => $result[$i]->getHeight(),
+                'getEra' => $result[$i]->getEra()->getSnapshot()[0]->getEra(),
+                'getPeriod' => $result[$i]->getPeriod()->getSnapshot()[0]->getPeriod(),
+                'getCulture' => getTimesProperly($culturesToMap),
+
+            ];
+        }
+
+
+        return $resultArray;
 
 
     }
