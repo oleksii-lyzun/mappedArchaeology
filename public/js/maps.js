@@ -1,14 +1,18 @@
 let map;
+const SITES = JSON.parse(document.getElementById('map').dataset.sites);
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
+        center: {lat: 49.471705, lng: 31.472399},
+        zoom: 6.3
     });
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-    let map2 = document.getElementById('map2');
-    let myData = map2.dataset.sites;
-    console.log(JSON.parse(myData));
-});
+    for(let i = 0; i < SITES.length; i++)
+    {
+        let geoCoordinates = {lat: parseFloat(SITES[i].getLatitude), lng: parseFloat(SITES[i].getLongitude)};
+        let marker = new google.maps.Marker({position: geoCoordinates, map: map});
+        marker.addListener('click', function () {
+            document.getElementById('siteInfo').style.display = 'block';
+        });
+    }
+}

@@ -48,6 +48,9 @@ class SitesRepository extends ServiceEntityRepository
     }
     */
 
+    /**
+     * @return array
+     */
     public function getAllSitesWithTimes()
     {
         $em = $this->getEntityManager();
@@ -65,21 +68,44 @@ class SitesRepository extends ServiceEntityRepository
 
         $resultArray = [];
 
-        for($i = 0; $i < count($result); $i++)
+        /**
+         * @param $timeArray
+         * @param $time
+         * @return array|null
+         */
+        function getTimesProperly($timeArray, $time)
         {
-            $culturesToMap = $result[$i]->getCulture()->getSnapshot();
+            $result = [];
 
-            function getTimesProperly($timeArray)
+            for($i = 0; $i < count($timeArray); $i++)
             {
-                $result = [];
-
-                for($i = 0; $i < count($timeArray); $i++)
-                {
-                    $result[] = $timeArray[$i]->getCulture();
+                switch ($time) {
+                    case 'era':
+                        $result[] = $timeArray[$i]->getEra();
+                        break;
+                    case 'period':
+                        $result[] = $timeArray[$i]->getPeriod();
+                        break;
+                    case 'culture':
+                        $result[] = $timeArray[$i]->getCulture();
+                        break;
+                    default:
+                        return null;
                 }
 
-                return $result;
+
             }
+            return $result;
+        }
+
+        /**
+         *
+         */
+        for($i = 0; $i < count($result); $i++)
+        {
+            $eraToMap = $result[$i]->getEra()->getSnapshot();
+            $periodsToMap = $result[$i]->getPeriod()->getSnapshot();
+            $culturesToMap = $result[$i]->getCulture()->getSnapshot();
 
             $resultArray[] = [
                 'nameUa' => $result[$i]->getSiteNameUa(),
@@ -90,16 +116,12 @@ class SitesRepository extends ServiceEntityRepository
                 'getLatitude' => $result[$i]->getLatitude(),
                 'getLongitude' => $result[$i]->getLongitude(),
                 'getHeight' => $result[$i]->getHeight(),
-                'getEra' => $result[$i]->getEra()->getSnapshot()[0]->getEra(),
-                'getPeriod' => $result[$i]->getPeriod()->getSnapshot()[0]->getPeriod(),
-                'getCulture' => getTimesProperly($culturesToMap),
-
+                'getEra' => getTimesProperly($eraToMap, 'era'),
+                'getPeriod' => getTimesProperly($periodsToMap, 'period'),
+                'getCulture' => getTimesProperly($culturesToMap, 'culture'),
             ];
         }
 
-
         return $resultArray;
-
-
     }
 }
