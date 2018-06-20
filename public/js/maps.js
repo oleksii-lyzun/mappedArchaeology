@@ -129,3 +129,26 @@ function deleteNodes()
         rootNode.removeChild(rootNode.firstChild);
     }
 }
+
+////////////////////////////////////////////////////////////////////////////
+
+let filterSidebarIsActive = false;
+let filterSidebar = document.getElementById('siteFilters-sidebar');
+let filterSidebarButton = document.getElementById('siteFilters-button');
+
+filterSidebarButton.addEventListener('click', function (ev) {
+    if(!filterSidebarIsActive)
+    {
+        filterSidebar.style.display = 'block';
+        filterSidebar.style.width = '250px';
+        filterSidebarIsActive = true;
+
+        console.log(filterSidebarButton.firstElementChild);
+        filterSidebarButton.firstElementChild.classList.remove('fa-angle-right');
+        filterSidebarButton.firstElementChild.classList.add('fa-angle-left');
+    } else {
+        filterSidebar.style.display = 'none';
+        filterSidebar.style.width = '0';
+        filterSidebarIsActive = false;
+    }
+});

@@ -47,4 +47,17 @@ class ErasRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAllEras()
+    {
+        $eras = [];
+        $erasUnclean =  $this->findAll();
+
+        for($i = 0; $i < count($erasUnclean); $i++)
+        {
+            $eras[] = $erasUnclean[$i]->getEra();
+        }
+
+        return $eras;
+    }
 }

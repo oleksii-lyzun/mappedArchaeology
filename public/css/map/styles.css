@@ -48,3 +48,26 @@ body, html {
     font-size: .9em;
     margin-left: 5%;
 }
+
+#siteFilters {
+    display: flex;
+    height: 93%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    align-items: center;
+}
+
+#siteFilters-sidebar {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 0;
+    background-color: #fff;
+}
+
+#siteFilters-button {
+    font-size: 24px;
+    padding: 10px;
+    background-color: #fff;
+}
