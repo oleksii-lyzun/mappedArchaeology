@@ -47,4 +47,20 @@ class PeriodsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return array of all periods
+     */
+    public function getAllPeriods()
+    {
+        $periods = [];
+        $periodsUnclean =  $this->findAll();
+
+        for($i = 0; $i < count($periodsUnclean); $i++)
+        {
+            $periods[] = $periodsUnclean[$i]->getPeriod();
+        }
+
+        return $periods;
+    }
 }

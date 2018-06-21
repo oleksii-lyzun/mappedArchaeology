@@ -47,4 +47,20 @@ class CulturesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return array of cultures
+     */
+    public function getAllCultures()
+    {
+        $cultures = [];
+        $culturesUnclean =  $this->findAll();
+
+        for($i = 0; $i < count($culturesUnclean); $i++)
+        {
+            $cultures[] = $culturesUnclean[$i]->getCulture();
+        }
+
+        return $cultures;
+    }
 }

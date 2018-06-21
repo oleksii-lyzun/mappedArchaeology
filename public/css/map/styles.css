@@ -59,7 +59,7 @@ body, html {
 }
 
 #siteFilters-sidebar {
-    display: block;
+    display: none;
     position: relative;
     height: 100%;
     width: 0;

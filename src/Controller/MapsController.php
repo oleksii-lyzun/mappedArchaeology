@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Cultures;
 use App\Entity\Eras;
+use App\Entity\Periods;
 use App\Entity\Sites;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,20 +16,24 @@ class MapsController extends Controller
      */
     public function index()
     {
-        $eras = [];
-
         $repository = $this->getDoctrine()->getRepository(Sites::class);
         $repositoryEras = $this->getDoctrine()->getRepository(Eras::class);
+        $repositoryPeriods = $this->getDoctrine()->getRepository(Periods::class);
+        $repositoryCultures = $this->getDoctrine()->getRepository(Cultures::class);
 
         $allSites = $repository->getAllSitesWithTimes();
         $sites = json_encode($allSites, JSON_UNESCAPED_UNICODE);
-
-        dump($repositoryEras->getAllEras());
-        //dump($repositoryEras->findAll());
+        $eras = $repositoryEras->getAllEras();
+        $periods = $repositoryPeriods->getAllPeriods();
+        $cultures = $repositoryCultures->getAllCultures();
+        //dump($periods, $cultures);
 
         return $this->render('maps/index.html.twig', [
             'controller_name' => 'MapsController',
             'sites' => $sites,
+            'eras' => $eras,
+            'periods' => $periods,
+            'cultures' => $cultures,
         ]);
     }
 }

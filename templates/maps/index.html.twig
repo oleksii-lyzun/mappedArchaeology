@@ -48,7 +48,28 @@
         <div class="siteInfo-inner"></div>
     </div>
     <div id="siteFilters">
-        <div id="siteFilters-sidebar"></div>
+        <div id="siteFilters-sidebar">
+            <div class="siteFilters-sidebar__eras">
+                <h2>Ери</h2>
+                {% for era in eras %}
+                    <input type="checkbox" name={{ era }} value={{ era }}>{{ era }}<br />
+                {% endfor %}
+            </div>
+
+            <div class="siteFilters-sidebar__periods">
+                <h2>Періоди:</h2>
+                {% for period in periods %}
+                    <input type="checkbox" name={{ period }} value={{ period }}>{{ period }}<br />
+                {% endfor %}
+            </div>
+
+            <div class="siteFilters-sidebar__cultures">
+                <h2>Культури:</h2>
+                {% for culture in cultures %}
+                    <input type="checkbox" name={{ culture }} value={{ culture }}>{{ culture }}<br />
+                {% endfor %}
+            </div>
+        </div>
         <div id="siteFilters-button"><i class="fas fa-angle-right"></i></div>
     </div>
 {% endblock %}

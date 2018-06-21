@@ -143,12 +143,14 @@ filterSidebarButton.addEventListener('click', function (ev) {
         filterSidebar.style.width = '250px';
         filterSidebarIsActive = true;
 
-        console.log(filterSidebarButton.firstElementChild);
         filterSidebarButton.firstElementChild.classList.remove('fa-angle-right');
         filterSidebarButton.firstElementChild.classList.add('fa-angle-left');
     } else {
         filterSidebar.style.display = 'none';
         filterSidebar.style.width = '0';
         filterSidebarIsActive = false;
+
+        filterSidebarButton.firstElementChild.classList.remove('fa-angle-left');
+        filterSidebarButton.firstElementChild.classList.add('fa-angle-right');
     }
 });
