@@ -6,7 +6,7 @@ let map;
 const SITES = JSON.parse(document.getElementById('map').dataset.sites);
 
 /**
- * Array with all created markers. Added custom properties to filter - era, period, culture
+ * Array with all created markers.
  * @type {Array}
  */
 let markers = [];
@@ -28,7 +28,8 @@ function initMap() {
             map: map,
             era: SITES[i].getEra,
             period: SITES[i].getPeriod,
-            culture: SITES[i].getCulture
+            culture: SITES[i].getCulture,
+            id: SITES[i].id,
         });
 
         markers.push(marker);
@@ -56,19 +57,91 @@ function initMap() {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////
+
+let filterSidebar = document.getElementById('siteFilters-sidebar');
+let filterSidebarButton = document.getElementById('siteFilters-button');
+
+let downUpButtonEra = document.querySelector('.downUpButton-era');
+let downUpButtonPeriod = document.querySelector('.downUpButton-period');
+let downUpButtonCulture = document.querySelector('.downUpButton-culture');
+
+let eraCheckboxes = '.eraCheckContainer';
+let periodCheckboxes = '.periodCheckContainer';
+let cultureCheckboxes = '.cultureCheckContainer';
+
+let filterSidebarIsActive = false;
+let eraCheckboxesIsActive = false;
+let periodCheckboxesIsActive = false;
+let cultureCheckboxesIsActive = false;
+
+filterSidebarButton.addEventListener('click', function () {
+    if(!filterSidebarIsActive)
+    {
+        filterSidebar.style.display = 'block';
+        filterSidebar.style.width = '250px';
+        filterSidebarIsActive = true;
+
+        filterSidebarButton.firstElementChild.classList.remove('fa-angle-right');
+        filterSidebarButton.firstElementChild.classList.add('fa-angle-left');
+
+        cutCheckBoxes(document.querySelectorAll('.eraCheckContainer'));
+        cutCheckBoxes(document.querySelectorAll('.periodCheckContainer'));
+        cutCheckBoxes(document.querySelectorAll('.cultureCheckContainer'));
+    } else {
+        filterSidebar.style.display = 'none';
+        filterSidebar.style.width = '0';
+        filterSidebarIsActive = false;
+
+        filterSidebarButton.firstElementChild.classList.remove('fa-angle-left');
+        filterSidebarButton.firstElementChild.classList.add('fa-angle-right');
+    }
+});
+
+showCheckboxes(eraCheckboxes, downUpButtonEra, eraCheckboxesIsActive);
+showCheckboxes(periodCheckboxes, downUpButtonPeriod, periodCheckboxesIsActive);
+showCheckboxes(cultureCheckboxes, downUpButtonCulture, cultureCheckboxesIsActive);
+
+document.querySelector('.siteFilters-sidebar__eras').addEventListener('change', function () {
+    filterEras();
+});
+
+document.querySelector('.siteFilters-sidebar__periods').addEventListener('change', function () {
+    filterPeriods();
+});
+
+document.querySelector('.siteFilters-sidebar__cultures').addEventListener('change', function () {
+    filterCultures();
+});
+
+
+
+/*
+*
+*
+*
+*
+HERE IS A BLOCK OF CODE WITH SERVICE FUNCTIONS
+*
+*
+*
+*
+*/
+
 
 /**
  *
- * @param parent
- * @param siteName
- * @param siteEnName
- * @param lat
- * @param long
- * @param h
+ * @param parent - parent div
+ * @param siteName - name of the site in Ukrainian
+ * @param siteEnName - name of the site in English
+ * @param lat - latitude
+ * @param long - longitude
+ * @param h - height above the sea
  * @param eras
  * @param periods
  * @param cultures
- * @param sh
+ * @param sh - short description in Ukrainian
+ * This function creates a Sidebar with detailed information about the site
  */
 function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods, cultures, sh)
 {
@@ -82,21 +155,23 @@ function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods
     let pCultures = document.createElement('p');
     let pShortDesc = document.createElement('p');
     let divI = document.createElement('div');
-    let button = document.createElement('button');
+    let link = document.createElement('a');
 
-    //
+    //Close button
     divI.className = 'siteInfo-inner__close';
     divI.innerHTML = '<i class="fas fa-times"></i>';
     divI.addEventListener('click', deleteNodes);
-    button.className = 'btn btn-primary btn-block siteInfo-inner__go';
-    button.type = 'button';
-    button.innerText = 'ПЕРЕЙТИ';
+
+    //Button to the site page
+    link.className = 'siteInfo-inner__go';
+    link.href = 'google.com';
+    link.innerText = 'ПЕРЕЙТИ';
 
     //Set site's name from arguments to h2
     h2.className = 'siteInfo-inner__h2';
     h2.innerHTML = `${siteName}`;
 
-    //
+    //Set site's properties from arguments
     pEnName.innerHTML = `EN: ${siteEnName}`;
     pLat.innerHTML = `Довгота: ${lat}`;
     pLong.innerHTML = `Широта: ${long}`;
@@ -106,9 +181,9 @@ function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods
     pCultures.innerHTML = `Культури: ${cultures}`;
     pShortDesc.innerHTML = `Короткий опис: ${sh}`;
 
-    //
+    //Append elements
     parent.appendChild(divI);
-    parent.appendChild(button);
+    parent.appendChild(link);
     parent.appendChild(h2);
     parent.appendChild(pEnName);
     parent.appendChild(pLat);
@@ -120,6 +195,10 @@ function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods
     parent.appendChild(pShortDesc);
 }
 
+/**
+ * Delete all child nodes from .siteInfo-inner div
+ * Set width of div with id #siteInfo to 0
+ */
 function deleteNodes()
 {
     let rootNode = document.querySelector('.siteInfo-inner');
@@ -130,27 +209,121 @@ function deleteNodes()
     }
 }
 
-////////////////////////////////////////////////////////////////////////////
+function showCheckboxes(checkboxesList, button, stateForButton) {
+    button.addEventListener('click', function () {
+        if(!stateForButton)
+        {
+            showHidedCheckboxes(document.querySelectorAll(`${checkboxesList}`));
+            stateForButton = true;
+        } else {
+            cutCheckBoxes(document.querySelectorAll(`${checkboxesList}`));
+            stateForButton = false;
+        }
+    });
+}
 
-let filterSidebarIsActive = false;
-let filterSidebar = document.getElementById('siteFilters-sidebar');
-let filterSidebarButton = document.getElementById('siteFilters-button');
-
-filterSidebarButton.addEventListener('click', function (ev) {
-    if(!filterSidebarIsActive)
+function cutCheckBoxes(checkboxes) {
+    for(let j = 3; j < checkboxes.length; j++)
     {
-        filterSidebar.style.display = 'block';
-        filterSidebar.style.width = '250px';
-        filterSidebarIsActive = true;
-
-        filterSidebarButton.firstElementChild.classList.remove('fa-angle-right');
-        filterSidebarButton.firstElementChild.classList.add('fa-angle-left');
-    } else {
-        filterSidebar.style.display = 'none';
-        filterSidebar.style.width = '0';
-        filterSidebarIsActive = false;
-
-        filterSidebarButton.firstElementChild.classList.remove('fa-angle-left');
-        filterSidebarButton.firstElementChild.classList.add('fa-angle-right');
+        checkboxes[j].style.display = 'none';
     }
-});
+}
+
+function showHidedCheckboxes(checkboxes) {
+
+
+    for(let j = 0; j < checkboxes.length; j++)
+    {
+        checkboxes[j].style.display = 'block';
+    }
+}
+
+function filterEras() {
+    let checkboxesGroup = document.querySelectorAll('.eraCheckbox');
+
+    for(let i = 0; i < checkboxesGroup.length; i++)
+    {
+        if(!checkboxesGroup[i].checked)
+        {
+            for(let j = 0; j < markers.length; j++)
+            {
+                if(markers[j].era.includes(checkboxesGroup[i].value)) {
+                    markers[j].setVisible(false);
+                }
+            }
+        }
+    }
+
+    for(let i = 0; i < checkboxesGroup.length; i++)
+    {
+        if(checkboxesGroup[i].checked)
+        {
+            for(let j = 0; j < markers.length; j++)
+            {
+                if(markers[j].era.includes(checkboxesGroup[i].value)) {
+                    markers[j].setVisible(true);
+                }
+            }
+        }
+    }
+}
+
+function filterPeriods() {
+    let checkboxesGroup = document.querySelectorAll('.periodCheckbox');
+
+    for(let i = 0; i < checkboxesGroup.length; i++)
+    {
+        if(!checkboxesGroup[i].checked)
+        {
+            for(let j = 0; j < markers.length; j++)
+            {
+                if(markers[j].period.includes(checkboxesGroup[i].value)) {
+                    markers[j].setVisible(false);
+                }
+            }
+        }
+    }
+
+    for(let i = 0; i < checkboxesGroup.length; i++)
+    {
+        if(checkboxesGroup[i].checked)
+        {
+            for(let j = 0; j < markers.length; j++)
+            {
+                if(markers[j].period.includes(checkboxesGroup[i].value)) {
+                    markers[j].setVisible(true);
+                }
+            }
+        }
+    }
+}
+
+function filterCultures() {
+    let checkboxesGroup = document.querySelectorAll('.cultureCheckbox');
+
+    for(let i = 0; i < checkboxesGroup.length; i++)
+    {
+        if(!checkboxesGroup[i].checked)
+        {
+            for(let j = 0; j < markers.length; j++)
+            {
+                if(markers[j].culture.includes(checkboxesGroup[i].value)) {
+                    markers[j].setVisible(false);
+                }
+            }
+        }
+    }
+
+    for(let i = 0; i < checkboxesGroup.length; i++)
+    {
+        if(checkboxesGroup[i].checked)
+        {
+            for(let j = 0; j < markers.length; j++)
+            {
+                if(markers[j].culture.includes(checkboxesGroup[i].value)) {
+                    markers[j].setVisible(true);
+                }
+            }
+        }
+    }
+}

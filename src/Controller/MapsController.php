@@ -26,7 +26,6 @@ class MapsController extends Controller
         $eras = $repositoryEras->getAllEras();
         $periods = $repositoryPeriods->getAllPeriods();
         $cultures = $repositoryCultures->getAllCultures();
-        //dump($periods, $cultures);
 
         return $this->render('maps/index.html.twig', [
             'controller_name' => 'MapsController',

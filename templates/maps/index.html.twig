@@ -44,30 +44,55 @@
 
     <!-- Map id container -->
     <div id="map" data-sites="{{sites}}"></div>
+
+    <!-- Container with detailed info about the site -->
     <div id="siteInfo">
         <div class="siteInfo-inner"></div>
     </div>
+
+    <!-- Container with filters -->
     <div id="siteFilters">
         <div id="siteFilters-sidebar">
             <div class="siteFilters-sidebar__eras">
                 <h2>Ери</h2>
                 {% for era in eras %}
-                    <input type="checkbox" name={{ era }} value={{ era }}>{{ era }}<br />
+                    <label class="containerCheckbox eraCheckContainer">{{ era }}
+                            <input type="checkbox" class="eraCheckbox" name="era" value="{{ era }}">
+                            <span class="checkmark"></span>
+                    </label>
                 {% endfor %}
+                <div class="downUpButton-era">
+                    <i class="fas fa-angle-down"></i>
+                    <span>Розгорнути</span>
+                </div>
             </div>
 
             <div class="siteFilters-sidebar__periods">
                 <h2>Періоди:</h2>
                 {% for period in periods %}
-                    <input type="checkbox" name={{ period }} value={{ period }}>{{ period }}<br />
+                    <label class="containerCheckbox periodCheckContainer">{{ period }}
+                        <input type="checkbox" class="periodCheckbox" name="period" value="{{ period }}" />
+                        <span class="checkmark"></span>
+                    </label>
                 {% endfor %}
+                <div class="downUpButton-period">
+                    <i class="fas fa-angle-down"></i>
+                    <span>Розгорнути</span>
+                </div>
             </div>
 
             <div class="siteFilters-sidebar__cultures">
                 <h2>Культури:</h2>
                 {% for culture in cultures %}
-                    <input type="checkbox" name={{ culture }} value={{ culture }}>{{ culture }}<br />
+                    <label class="containerCheckbox cultureCheckContainer">{{ culture }}
+                        <input type="checkbox" class="cultureCheckbox" name="culture" value="{{ culture }}">
+                        <span class="checkmark"></span>
+                    </label>
                 {% endfor %}
+                <div class="downUpButton-culture">
+                    <i class="fas fa-angle-down"></i>
+                    <span>Розгорнути</span>
+                </div>
             </div>
         </div>
         <div id="siteFilters-button"><i class="fas fa-angle-right"></i></div>

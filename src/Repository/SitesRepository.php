@@ -108,6 +108,7 @@ class SitesRepository extends ServiceEntityRepository
             $culturesToMap = $result[$i]->getCulture()->getSnapshot();
 
             $resultArray[] = [
+                'id' =>$result[$i]->getId(),
                 'nameUa' => $result[$i]->getSiteNameUa(),
                 'nameEn' => $result[$i]->getSiteNameEn(),
                 'descUa' => $result[$i]->getSiteShDescUa(),
