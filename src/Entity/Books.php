@@ -19,22 +19,17 @@ class Books
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $author_lastName;
+    private $authorLastName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $author_firstName;
+    private $authorFirstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $addedAt;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -51,26 +46,26 @@ class Books
         return $this->id;
     }
 
-    public function getAuthor_lastName(): ?string
+    public function getAuthorLastName(): ?string
     {
-        return $this->author_lastName;
+        return $this->authorLastName;
     }
 
-    public function setAuthor_lastName(string $author_lastName): self
+    public function setAuthorLastName(string $authorLastName): self
     {
-        $this->author_lastName = $author_lastName;
+        $this->authorLastName = $authorLastName;
 
         return $this;
     }
 
-    public function getAuthor_firstName(): ?string
+    public function getAuthorFirstName(): ?string
     {
-        return $this->author_firstName;
+        return $this->authorFirstName;
     }
 
-    public function setAuthor_firsName(string $author_firstName): self
+    public function setAuthorFirstName(string $authorFirstName): self
     {
-        $this->author_firstName = $author_firstName;
+        $this->authorFirstName = $authorFirstName;
 
         return $this;
     }
@@ -87,17 +82,6 @@ class Books
         return $this;
     }
 
-    public function getAddedAt(): ?\DateTimeInterface
-    {
-        return $this->addedAt;
-    }
-
-    public function setAddedAt(?\DateTimeInterface $addedAt): self
-    {
-        $this->addedAt = $addedAt;
-
-        return $this;
-    }
 
     public function getPublishedYear(): ?int
     {

@@ -52,7 +52,9 @@ function initMap() {
                 SITES[i].getEra,
                 SITES[i].getPeriod,
                 SITES[i].getCulture,
-                SITES[i].descUa);
+                SITES[i].descUa,
+                SITES[i].id
+            );
         });
     }
 }
@@ -98,22 +100,10 @@ filterSidebarButton.addEventListener('click', function () {
     }
 });
 
+
 showCheckboxes(eraCheckboxes, downUpButtonEra, eraCheckboxesIsActive);
 showCheckboxes(periodCheckboxes, downUpButtonPeriod, periodCheckboxesIsActive);
 showCheckboxes(cultureCheckboxes, downUpButtonCulture, cultureCheckboxesIsActive);
-
-document.querySelector('.siteFilters-sidebar__eras').addEventListener('change', function () {
-    filterEras();
-});
-
-document.querySelector('.siteFilters-sidebar__periods').addEventListener('change', function () {
-    filterPeriods();
-});
-
-document.querySelector('.siteFilters-sidebar__cultures').addEventListener('change', function () {
-    filterCultures();
-});
-
 
 
 /*
@@ -141,9 +131,10 @@ HERE IS A BLOCK OF CODE WITH SERVICE FUNCTIONS
  * @param periods
  * @param cultures
  * @param sh - short description in Ukrainian
+ * @param id
  * This function creates a Sidebar with detailed information about the site
  */
-function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods, cultures, sh)
+function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods, cultures, sh, id)
 {
     let h2 = document.createElement('h2');
     let pEnName = document.createElement('p');
@@ -164,7 +155,7 @@ function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods
 
     //Button to the site page
     link.className = 'siteInfo-inner__go';
-    link.href = 'google.com';
+    link.href = `sites/show/${id}`;
     link.innerText = 'ПЕРЕЙТИ';
 
     //Set site's name from arguments to h2
@@ -238,92 +229,3 @@ function showHidedCheckboxes(checkboxes) {
     }
 }
 
-function filterEras() {
-    let checkboxesGroup = document.querySelectorAll('.eraCheckbox');
-
-    for(let i = 0; i < checkboxesGroup.length; i++)
-    {
-        if(!checkboxesGroup[i].checked)
-        {
-            for(let j = 0; j < markers.length; j++)
-            {
-                if(markers[j].era.includes(checkboxesGroup[i].value)) {
-                    markers[j].setVisible(false);
-                }
-            }
-        }
-    }
-
-    for(let i = 0; i < checkboxesGroup.length; i++)
-    {
-        if(checkboxesGroup[i].checked)
-        {
-            for(let j = 0; j < markers.length; j++)
-            {
-                if(markers[j].era.includes(checkboxesGroup[i].value)) {
-                    markers[j].setVisible(true);
-                }
-            }
-        }
-    }
-}
-
-function filterPeriods() {
-    let checkboxesGroup = document.querySelectorAll('.periodCheckbox');
-
-    for(let i = 0; i < checkboxesGroup.length; i++)
-    {
-        if(!checkboxesGroup[i].checked)
-        {
-            for(let j = 0; j < markers.length; j++)
-            {
-                if(markers[j].period.includes(checkboxesGroup[i].value)) {
-                    markers[j].setVisible(false);
-                }
-            }
-        }
-    }
-
-    for(let i = 0; i < checkboxesGroup.length; i++)
-    {
-        if(checkboxesGroup[i].checked)
-        {
-            for(let j = 0; j < markers.length; j++)
-            {
-                if(markers[j].period.includes(checkboxesGroup[i].value)) {
-                    markers[j].setVisible(true);
-                }
-            }
-        }
-    }
-}
-
-function filterCultures() {
-    let checkboxesGroup = document.querySelectorAll('.cultureCheckbox');
-
-    for(let i = 0; i < checkboxesGroup.length; i++)
-    {
-        if(!checkboxesGroup[i].checked)
-        {
-            for(let j = 0; j < markers.length; j++)
-            {
-                if(markers[j].culture.includes(checkboxesGroup[i].value)) {
-                    markers[j].setVisible(false);
-                }
-            }
-        }
-    }
-
-    for(let i = 0; i < checkboxesGroup.length; i++)
-    {
-        if(checkboxesGroup[i].checked)
-        {
-            for(let j = 0; j < markers.length; j++)
-            {
-                if(markers[j].culture.includes(checkboxesGroup[i].value)) {
-                    markers[j].setVisible(true);
-                }
-            }
-        }
-    }
-}
