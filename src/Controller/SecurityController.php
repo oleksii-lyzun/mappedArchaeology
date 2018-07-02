@@ -71,7 +71,7 @@ class SecurityController extends Controller
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // ... do any other work - like sending them an email, etc
+            // ... do any other work - like sending them an emails, etc
             // maybe set a "flash" success message for the user
 
             return $this->redirectToRoute('home');

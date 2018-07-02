@@ -1,0 +1,39 @@
+.form-wrapper {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #f5f5f5;
+}
+
+form {
+    width: 100%;
+    max-width: 800px;
+    padding: 25px;
+    margin: auto;
+}
+
+.propositions-wrapper {
+    max-width: 800px;
+    padding: 25px;
+    margin: 15px auto 65px auto;
+}
+
+.proposition-one {
+    display: block;
+    margin: auto;
+}
+
+.proposition-one h2 {
+    font-size: 1.2em;
+}
+
+hr {
+    color: gray;
+}
+
+.pagination {
+    margin: auto;
+}

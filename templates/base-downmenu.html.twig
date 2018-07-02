@@ -1,22 +1,27 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello {{ controller_name }}!{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/library/bookStyles.css') }}" />
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    {% endblock %}
+</head>
+<body>
 
 {% block body %}
+
+    {% block customBody %}{% endblock %}
+
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
         <div class="container">
 
             {% if user == null %}
                 <a class="navbar-brand" href="{{ path('login') }}">Ввійти</a>
                 <a class="navbar-brand" href="{{ path('user_registration') }}">Зареєструватися</a>
             {% else %}
-                <a class="navbar-brand">{{ username }} <a href="{{ path('logout') }}">Вийти</a>
+                {{ username }} <a href="{{ path('logout') }}">Вийти</a>
             {% endif %}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,8 +29,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home">Головна</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Головна
+                            <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/maps">Мапа</a>
@@ -47,28 +54,12 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
-    <div class="container">
-
-        <h1 class="my-4 text-center text-lg-left">Монографії</h1>
-
-        <div class="d-flex flex-row flex-wrap justify-content-around">
-
-            {% for book in allBooks %}
-                <div class="oneBook p-2">
-                    <p class="blockInfoCaptions">Автор: {{ book.author_lastName }} {{ book.author_firstName }}</p>
-                    <p class="blockInfoCaptions">Назва: {{ book.title }}</p>
-                </div>
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-    <!-- Footer -->
-    <footer class="py-3 bg-dark fixed-bottom">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-        </div>
-    </footer>
 {% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+{% endblock %}
+</body>
+</html>
