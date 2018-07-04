@@ -125,4 +125,17 @@ class SitesRepository extends ServiceEntityRepository
 
         return $resultArray;
     }
+
+    public function getSitesLike($param)
+    {
+        $em = $this->getEntityManager();
+        $db = $em->createQueryBuilder();
+
+        $db
+            ->select(array('site.id', 'site.site_name_ua'))
+            ->from('App:Sites', 'site')
+            ->where($db->expr()->like('site.site_name_ua', $db->expr()->literal('%'.$param.'%')));
+
+        return $db->getQuery()->getResult();
+    }
 }

@@ -5,3 +5,13 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
+
+section {
+    position: relative;
+}
+
+.search {
+    position: absolute;
+    top: 10%;
+    right: 2.5%;
+}

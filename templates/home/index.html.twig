@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{{ asset('css/home/styles.css') }}"
 {% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/search.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
@@ -14,7 +18,7 @@
                 <a class="navbar-brand" href="{{ path('login') }}">Ввійти</a>
                 <a class="navbar-brand" href="{{ path('user_registration') }}">Зареєструватися</a>
             {% else %}
-                <a class="navbar-brand">{{ username }} <a href="{{ path('logout') }}">Вийти</a>
+                {{ username }} <a href="{{ path('logout') }}">Вийти</a>
             {% endif %}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,5 +61,7 @@
                 </div>
             </div>
         </div>
+
+        <input type="text" width="300px" class="search" id="searchAJAX" />
     </section>
 {% endblock %}
