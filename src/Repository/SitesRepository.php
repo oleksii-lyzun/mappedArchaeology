@@ -137,5 +137,5 @@ class SitesRepository extends ServiceEntityRepository
             ->where($db->expr()->like('site.site_name_ua', $db->expr()->literal('%'.$param.'%')));
 
         return $db->getQuery()->getResult();
-    }
+    }     
 }

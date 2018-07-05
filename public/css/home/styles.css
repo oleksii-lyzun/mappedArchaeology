@@ -14,4 +14,23 @@ section {
     position: absolute;
     top: 10%;
     right: 2.5%;
+    width: 20%;
+}
+
+.searchResultLink {
+    overflow-x: hidden;
+    display: block;
+    padding-top: 10px;
+    border-bottom: solid 1px #343a40;
+    color: black;
+}
+
+.searchResultLink:last-child {
+    padding-bottom: 10px;
+}
+
+.searchResultLink:hover {
+    text-decoration: none;
+    background-color: rgba(52, 58, 64, .5);
+    color: #fff;
 }

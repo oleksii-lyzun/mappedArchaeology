@@ -62,6 +62,10 @@
             </div>
         </div>
 
-        <input type="text" width="300px" class="search" id="searchAJAX" />
+        <form method="post" action="/search">
+            <div class="form-group search">
+                <input type="text" class="form-control" id="searchAJAX" title="Search">
+            </div>
+        </form>
     </section>
 {% endblock %}

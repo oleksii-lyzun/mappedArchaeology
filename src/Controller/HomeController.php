@@ -15,10 +15,9 @@ class HomeController extends Controller
     /**
      * @Route("/home", name="home")
      * @param Security $security
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Security $security, Request $request)
+    public function index(Security $security)
     {
         $user = $security->getUser();
 
@@ -27,11 +26,6 @@ class HomeController extends Controller
             $username = $user->getUsername();
         } else {
             $username = null;
-        }
-
-        if($request->isXmlHttpRequest())
-        {
-            return new Response($request->request->get('name'));
         }
 
         return $this->render('home/index.html.twig', [
