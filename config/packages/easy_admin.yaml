@@ -7,8 +7,55 @@
 
 easy_admin:
     entities:
-        - App\Entity\Eras
-        - App\Entity\Periods
-        - App\Entity\Cultures
-        - App\Entity\Sites
-        - App\Entity\Books
+          Sites:
+            class: App\Entity\Sites
+
+            list:
+              fields:
+                - { property: 'id' }
+                - { property: 'site_name_ua' }
+                - { property: 'site_name_en' }
+                - { property: 'is_published' }
+                - { property: 'image', type: 'image', base_path: '%app.path.sites_images%' }
+
+            show:
+              fields:
+                - { property: 'image', type: 'image', base_path: '%app.path.sites_images%' }
+
+            form:
+              fields:
+                - 'site_name_ua'
+                - 'site_name_en'
+                - 'site_sh_desc_ua'
+                - 'site_desc_ua'
+                - 'is_published'
+                - 'latitude'
+                - 'longitude'
+                - 'height'
+                - 'era'
+                - 'period'
+                - 'culture'
+                - 'image'
+                - { property: 'imageFile', type: 'vich_image' }
+
+
+          AppUsers:
+            class: App\Entity\AppUsers
+
+          MessagesFromUsers:
+            class: App\Entity\MessagesFromUsers
+
+          Eras:
+            class: App\Entity\Eras
+
+          Periods:
+            class: App\Entity\Periods
+
+          Cultures:
+            class: App\Entity\Cultures
+
+          Books:
+            class: App\Entity\Books
+
+          Articles:
+            class: App\Entity\Articles

@@ -25,6 +25,7 @@
         "symfony/web-server-bundle": "^4.0",
         "symfony/webpack-encore-pack": "*",
         "symfony/yaml": "^4.0",
+        "vich/uploader-bundle": "^1.8",
         "white-october/pagerfanta-bundle": "^1.2"
     },
     "require-dev": {

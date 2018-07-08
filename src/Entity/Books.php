@@ -19,12 +19,7 @@ class Books
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $authorLastName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $authorFirstName;
+    private $authors;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,35 +34,42 @@ class Books
     /**
      * @ORM\Column(type="string", length=75, nullable=true)
      */
-    private $publishedHouse;
+    private $publisher;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_active;
+
+    /**
+     * @ORM\Column(type="string", length=500)
+     */
+    private $annotation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $link;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getAuthorLastName(): ?string
+    /**
+     * @return mixed
+     */
+    public function getAuthors()
     {
-        return $this->authorLastName;
+        return $this->authors;
     }
 
-    public function setAuthorLastName(string $authorLastName): self
+    /**
+     * @param mixed $authors
+     */
+    public function setAuthors($authors): void
     {
-        $this->authorLastName = $authorLastName;
-
-        return $this;
-    }
-
-    public function getAuthorFirstName(): ?string
-    {
-        return $this->authorFirstName;
-    }
-
-    public function setAuthorFirstName(string $authorFirstName): self
-    {
-        $this->authorFirstName = $authorFirstName;
-
-        return $this;
+        $this->authors = $authors;
     }
 
     public function getTitle(): ?string
@@ -95,15 +97,67 @@ class Books
         return $this;
     }
 
-    public function getPublishedHouse(): ?string
+    /**
+     * @return mixed
+     */
+    public function getPublisher()
     {
-        return $this->publishedHouse;
+        return $this->publisher;
     }
 
-    public function setPublishedHouse(?string $publishedHouse): self
+    /**
+     * @param mixed $publisher
+     */
+    public function setPublisher($publisher): void
     {
-        $this->publishedHouse = $publishedHouse;
+        $this->publisher = $publisher;
+    }
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param mixed $is_active
+     */
+    public function setIsActive($is_active): void
+    {
+        $this->is_active = $is_active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnnotation()
+    {
+        return $this->annotation;
+    }
+
+    /**
+     * @param mixed $annotation
+     */
+    public function setAnnotation($annotation): void
+    {
+        $this->annotation = $annotation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param mixed $link
+     */
+    public function setLink($link): void
+    {
+        $this->link = $link;
     }
 }

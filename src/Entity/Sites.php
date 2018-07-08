@@ -6,9 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SitesRepository")
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Sites
 {
@@ -37,17 +41,7 @@ class Sites
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $site_sh_desc_en;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
     private $site_desc_ua;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $site_desc_en;
 
     /**
      * @ORM\Column(type="boolean")
@@ -70,9 +64,10 @@ class Sites
     private $height;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Cultures", inversedBy="site")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Eras", inversedBy="site")
+     * @JoinTable(name="sites_eras")
      */
-    private $culture;
+    private $era;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Periods", inversedBy="site")
@@ -80,16 +75,35 @@ class Sites
     private $period;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Eras", inversedBy="site")
-     * @JoinTable(name="sites_eras")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Cultures", inversedBy="site")
      */
-    private $era;
+    private $culture;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="sites_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
         $this->culture = new ArrayCollection();
         $this->period = new ArrayCollection();
         $this->era = new ArrayCollection();
+
+        $this->updatedAt = new \DateTime('1970-01-01');
     }
 
     public function getId()
@@ -133,18 +147,6 @@ class Sites
         return $this;
     }
 
-    public function getSiteShDescEn(): ?string
-    {
-        return $this->site_sh_desc_en;
-    }
-
-    public function setSiteShDescEn(?string $site_sh_desc_en): self
-    {
-        $this->site_sh_desc_en = $site_sh_desc_en;
-
-        return $this;
-    }
-
     public function getSiteDescUa(): ?string
     {
         return $this->site_desc_ua;
@@ -153,18 +155,6 @@ class Sites
     public function setSiteDescUa(?string $site_desc_ua): self
     {
         $this->site_desc_ua = $site_desc_ua;
-
-        return $this;
-    }
-
-    public function getSiteDescEn(): ?string
-    {
-        return $this->site_desc_en;
-    }
-
-    public function setSiteDescEn(?string $site_desc_en): self
-    {
-        $this->site_desc_en = $site_desc_en;
 
         return $this;
     }
@@ -298,4 +288,62 @@ class Sites
     public function __toString() {
         return $this->site_name_en;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+
+    /**
+     * @param File|null $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @param \DateTime $updatedAt\
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
 }

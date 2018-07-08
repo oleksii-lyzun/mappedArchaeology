@@ -9,8 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @UniqueEntity(fields="emails", message="Email already taken")
- * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Така почтова адреса вже існує")
+ * @UniqueEntity(fields="username", message="Вибачте, такий логін вже зайнятий")
  */
 class AppUsers implements UserInterface, \Serializable
 {
