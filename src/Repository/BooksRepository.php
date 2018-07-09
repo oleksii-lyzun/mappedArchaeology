@@ -47,4 +47,14 @@ class BooksRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('books')
+            ->where('books.is_active = :val')
+            ->setParameter('val', true)
+            ->orderBy('books.authors', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
 }

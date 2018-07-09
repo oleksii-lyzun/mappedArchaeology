@@ -12,7 +12,7 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        return $this->render('library/index.html.twig', [
+        return $this->render('index.html.twig', [
             'controller_name' => 'LibraryController',
         ]);
     }

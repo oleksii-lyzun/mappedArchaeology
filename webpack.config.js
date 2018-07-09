@@ -9,7 +9,9 @@ Encore
 
     // uncomment to define the assets of the project
     .addEntry('articles', './assets/js/articles.js')
+    .addEntry('books', './assets/js/books.js')
     .addEntry('baseLayout', './assets/js/baseLayout.js')
+
 
     .enableBuildNotifications()
 
