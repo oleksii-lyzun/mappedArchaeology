@@ -1,0 +1,66 @@
+{% extends 'base-downmenu.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/articles.css') }}" />
+{% endblock %}
+
+{% block customBody %}
+    <div class="container">
+        <h1>Статті в періодичних виданнях</h1>
+
+        {% for item in fanta.currentPageResults %}
+            <div class="oneRecord">
+                <p class="oneRecord__authors">
+                    <span class="oneRecord__authors--caption fBold">Автор(и):</span> {{item.authors}}
+                </p>
+
+                <p class="oneRecord__title">
+                    <span class="oneRecord__title--caption fBold">Назва:</span> {{ item.title }}
+                </p>
+
+                <p class="oneRecord__journal">
+                    <span class="oneRecord__journal--caption fBold">Видання:</span> {{ item.journal }}
+                </p>
+
+                <p class="oneRecord__publisher">
+                    <span class="oneRecord__publisher--caption fBold">Видавництво:</span>
+                    {% if item.publisher == true %}
+                        {{ item.publisher }}
+                    {% else %}
+                        Немає інформації
+                    {% endif %}
+                </p>
+
+                <p class="oneRecord__year">
+                    <span class="oneRecord__year--caption fBold">Рік видання:</span> {{ item.publishedYear }}
+                </p>
+
+                <p class="oneRecord__link">
+                    <span class="oneRecord_link--caption fBold">Посилання: </span>
+                    {% if item.link == true %}
+                        {{ item.link }}
+                    {% else %}
+                        Посилання відсутнє
+                    {% endif %}
+                </p>
+
+                <p class="oneRecord__annotation">
+                    <span class="oneRecord__annotation--caption fBold">Анотація: </span> {{ item.annotation }}
+                </p>
+            </div>
+        {% endfor %}
+
+        {% if fanta.currentPageResults == false %}
+            <div class="noArticles">
+                <p>Вибачте, у цій категорії ще немає статей!</p>
+            </div>
+        {% else %}
+            <div class="pagination">
+                {{ pagerfanta(fanta, 'twitter_bootstrap4') }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -47,4 +47,13 @@ class ArticlesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('articles')
+            ->where('articles.isActive = :val')
+            ->setParameter('val', true)
+            ->getQuery()
+            ->execute();
+    }
 }
