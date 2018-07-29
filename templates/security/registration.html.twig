@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-downmenu.html.twig' %}
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/security/register.css') }}"
+    <link rel="stylesheet" href="{{ asset('build/register.css') }}"
 {% endblock %}
 
 {% block body %}
