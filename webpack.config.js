@@ -11,6 +11,8 @@ Encore
     .addEntry('articles', './assets/js/articles.js')
     .addEntry('books', './assets/js/books.js')
     .addEntry('baseLayout', './assets/js/baseLayout.js')
+    .addEntry('sitesList', './assets/js/sitesList.js')
+    .addEntry('sitesShow', './assets/js/sitesShow.js')
 
 
     .enableBuildNotifications()

@@ -1,0 +1,90 @@
+{% extends 'base-downmenu.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/sitesShow.css') }}">
+{% endblock %}
+
+{% block customBody %}
+    <div class="container">
+        <h1>{{ sites['siteNameUa'] }} | {{ sites['siteNameEn'] }}</h1>
+        <hr>
+        {% if sites['image'] %}
+            <img src="/uploads/images/sites/{{ sites['image'] }}" alt="{{ sites['image'] }}" />
+        {% else %}
+            <img src="{{ asset('uploads/images/sites/imageNotFound.png') }}"/>
+        {% endif %}
+        <hr>
+
+        <div class="characteristics">
+            <h2>Характеристики</h2>
+            <p>Довгота: {{ sites['longitude'] }}</p>
+            <p>Широта: {{ sites['latitude'] }}</p>
+
+            {% if sites['height'] %}
+                <p>Висота над рівнем моря: {{ sites['height'] }}</p>
+            {% else %}
+                <p>Висота над рівнем моря: невідома</p>
+            {% endif %}
+
+            <p>Ери:<br />
+                {% if sites['eras']|length == 0 %}
+                    <span>Невідомо</span>
+                {% else %}
+                    {% for eraItem in sites['eras'] %}
+                        {{ eraItem }}
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>Періоди:<br />
+                {% if sites['periods']|length == 0 %}
+                    <span>Невідомо</span>
+                {% else %}
+                    {% for periodItem in sites['periods'] %}
+                        {{ periodItem }}
+                    {% endfor %}
+                {% endif %}
+            </p>
+
+            <p>Культури:<br />
+                {% if sites['cultures']|length == 0 %}
+                    <span>Невідомо</span>
+                {% else %}
+                    {% for cultureItem in sites['cultures'] %}
+                        {{ cultureItem }}
+                    {% endfor %}
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="description">
+            <h2>Детальна інформація</h2>
+            {{ sites['description'] }}
+        </div>
+
+    <div id="disqus_thread"></div>
+    <script>
+
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+        var disqus_config = function () {
+        this.page.url = '{{ url('app_sites_show', {'id' : sites['id']}) }}';
+        this.page.identifier = '{{ path('app_sites_show', {'id' : sites['id']}) }}';
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://mappedarchaeology.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+{% endblock %}

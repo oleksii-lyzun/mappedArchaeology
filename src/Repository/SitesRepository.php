@@ -48,6 +48,44 @@ class SitesRepository extends ServiceEntityRepository
     }
     */
 
+    public function getOneSiteById($id)
+    {
+        $unservicedResult = $this->find($id);
+
+        $result = [];
+
+        $result['id'] = $unservicedResult->getId();
+        $result['siteNameUa'] = $unservicedResult->getSiteNameUa();
+        $result['siteNameEn'] = $unservicedResult->getSiteNameEn();
+        $result['latitude'] = $unservicedResult->getLatitude();
+        $result['longitude'] = $unservicedResult->getLongitude();
+        $result['height'] = $unservicedResult->getHeight();
+        $result['image'] = $unservicedResult->getImage();
+        $result['isPublished'] = $unservicedResult->getIsPublished();
+        $result['description'] = $unservicedResult->getSiteDescUa();
+
+        $eraArray = $unservicedResult->getEra();
+        for($i = 0; $i < count($eraArray); $i++)
+        {
+            $result['eras'][] = $eraArray[$i]->getEra();
+        }
+
+        $periodArray = $unservicedResult->getPeriod();
+        for($i = 0; $i < count($periodArray); $i++)
+        {
+            $result['periods'][] = $periodArray[$i]->getPeriod();
+        }
+
+        $cultureArray = $unservicedResult->getCulture();
+        for($i = 0; $i < count($cultureArray); $i++)
+        {
+            $result['cultures'][] = $cultureArray[$i]->getCulture();
+        }
+
+        return $result;
+
+    }
+
     /**
      * @return array
      */
@@ -137,5 +175,14 @@ class SitesRepository extends ServiceEntityRepository
             ->where($db->expr()->like('site.site_name_ua', $db->expr()->literal('%'.$param.'%')));
 
         return $db->getQuery()->getResult();
-    }     
+    }
+
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('sites')
+            ->where('sites.is_published = :val')
+            ->setParameter('val', true)
+            ->getQuery()
+            ->execute();
+    }
 }

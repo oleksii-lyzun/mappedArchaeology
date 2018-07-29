@@ -28,6 +28,8 @@ class HomeController extends Controller
             $username = null;
         }
 
+        dump($user);
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'user' => $user,

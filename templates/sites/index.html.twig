@@ -1,20 +1,85 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-downmenu.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %} Пам'ятки {% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/sitesList.css') }}" />
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block customBody %}
+    <div class="container">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/SitesController.php'|file_link(0) }}">src/Controller/SitesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/sites/index.html.twig'|file_link(0) }}">templates/sites/index.html.twig</a></code></li>
-    </ul>
-</div>
+        {% for item in fanta.currentPageResults %}
+            <article class="oneArticle">
+                <h2><a href="/sites/show/{{ item.id }}">{{ item.siteNameUa }} | {{ item.siteNameEn }}</a></h2>
+
+                <div class="oneArticle__columnsArea">
+
+                    <div class="oneArticle__columnsArea--image">
+                        {% if item.image %}
+                            <img src="/uploads/images/sites/{{ item.image }}"/>
+                        {% else %}
+                            <img src="{{ asset('uploads/images/sites/imageNotFound.png') }}"/>
+                        {% endif %}
+                    </div>
+
+                    <div class="oneArticle__columnsArea--information">
+                        <p>Довгота: <span class="characteristic">{{ item.longitude }}</span></p>
+                        <p>Широта: <span class="characteristic">{{ item.latitude }}</span></p>
+
+                        {% if item.height %}
+                            <p>Висота над рівнем моря: {{ item.height }}</p>
+                        {% else %}
+                            <p>Висота над рівнем моря: невідома</p>
+                        {% endif %}
+
+                <p>Ери:<br />
+                    {% if item.era|length == 0 %}
+                        <span>Невідомо</span>
+                    {% else %}
+                        {% for eraItem in item.era %}
+                            <span class="characteristic">{{ eraItem }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+
+                <p>Періоди:<br />
+                    {% if item.period|length == 0 %}
+                        <span>Невідомо</span>
+                    {% else %}
+                        {% for periodItem in item.period %}
+                            <span class="characteristic">{{ periodItem }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+
+                <p>Культури:<br />
+                    {% if item.culture|length == 0 %}
+                        <span>Невідомо</span>
+                    {% else %}
+                        {% for cultureItem in item.culture %}
+                            <span class="characteristic">{{ cultureItem }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+                </div>
+                </div>
+
+                <p class="oneArticle__shortDescription">{{ item.siteShDescUa }}</p>
+            </article>
+
+        {% endfor %}
+
+            {% if fanta.currentPageResults == false %}
+                <div class="noArticles">
+                    <p>Вибачте, у цій категорії ще немає статей!</p>
+                </div>
+            {% else %}
+                <div class="pagination">
+                    {{ pagerfanta(fanta, 'twitter_bootstrap4') }}
+                </div>
+            {% endif %}
+    </div>
+
 {% endblock %}

@@ -1,15 +1,24 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
+
+        in_memory:
+          memory:
+            users:
+              admin:
+                password: $2y$12$dyo1UZDdPwzxqh7iMo6nout.dZtZ.JoZegnGAnI0zx.2yQgIlP036
+                roles: 'ROLE_ADMIN'
+
         our_db_provider:
             entity:
                 class: App\Entity\AppUsers
                 property: username
 
-        in_memory:
-            memory:
-
     encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+
         App\Entity\AppUsers:
             algorithm: bcrypt
 
@@ -17,8 +26,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        admin_area:
+            pattern: ^/admin
+            http_basic:
+              realm: 'Secured Demo Area'
+              provider: in_memory
+
         main:
             anonymous: true
+
             provider: our_db_provider
             form_login:
                 login_path: login

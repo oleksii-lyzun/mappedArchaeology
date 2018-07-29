@@ -1,0 +1,46 @@
+$break320px: 320px;
+$break600px : 600px;
+
+.container {
+  h1 {
+    text-align: center;
+
+    @media screen and (max-width: $break320px) {
+      font-size: 2rem;
+    }
+  }
+
+  h2 {
+    text-align: center;
+
+    @media screen and (max-width: $break320px) {
+      font-size: 1.35rem;
+    }
+  }
+
+  img {
+    display: block;
+    margin: auto;
+    max-width: 95%;
+  }
+
+  #disqus_thread {
+    margin: 0 auto 5% auto;
+
+    @media screen and (max-width: $break320px) {
+      margin: 0 auto 10% auto;
+    }
+
+    @media screen and (max-width: $break600px) {
+      margin: 0 auto 15% auto;
+    }
+  }
+}
+
+.characteristics {
+  text-align: center;
+}
+
+.description {
+  text-align: justify;
+}

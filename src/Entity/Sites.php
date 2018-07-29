@@ -34,7 +34,7 @@ class Sites
     private $site_name_en;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", length=500, nullable=true)
      */
     private $site_sh_desc_ua;
 
@@ -80,7 +80,7 @@ class Sites
     private $culture;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $image;
@@ -103,7 +103,7 @@ class Sites
         $this->period = new ArrayCollection();
         $this->era = new ArrayCollection();
 
-        $this->updatedAt = new \DateTime('1970-01-01');
+        $this->updatedAt = new \DateTime('now');
     }
 
     public function getId()
@@ -316,8 +316,9 @@ class Sites
 
     /**
      * @return string
+     * : strung
      */
-    public function getImage(): string
+    public function getImage()
     {
         return $this->image;
     }
