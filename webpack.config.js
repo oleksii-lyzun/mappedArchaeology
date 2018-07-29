@@ -13,6 +13,7 @@ Encore
     .addEntry('baseLayout', './assets/js/baseLayout.js')
     .addEntry('sitesList', './assets/js/sitesList.js')
     .addEntry('sitesShow', './assets/js/sitesShow.js')
+    .addEntry('contactUs', './assets/js/contactUs.js')
 
 
     .enableBuildNotifications()

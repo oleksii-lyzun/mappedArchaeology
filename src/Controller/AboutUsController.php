@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Adapter\ArrayAdapter;
 use App\Entity\MessagesFromUsers;
 use App\Form\MessageType;
 use Pagerfanta\Pagerfanta;
@@ -13,25 +13,30 @@ use Symfony\Component\Security\Core\Security;
 
 class AboutUsController extends Controller
 {
-    /**
-     * @Route("/about-us", name="about_us")
-     * @param Request $request
-     * @param Security $security
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function index(Request $request, Security $security)
+    private $user;
+    private $username;
+
+    public function __construct(Security $security)
     {
-        $user = $security->getUser();
+        $this->user = $security->getUser();
 
         // Checking out if user is logged in
         // If not - $username = null
-        if($user)
+        if($this->user)
         {
-            $username = $user->getUsername();
+            $this->username = $this->user->getUsername();
         } else {
             $username = null;
         }
+    }
 
+    /**
+     * @Route("/about-us", name="about_us")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function index(Request $request)
+    {
         //Let's build a form
         $messages = new MessagesFromUsers();
         $form = $this->createForm(MessageType::Class, $messages);
@@ -62,7 +67,7 @@ class AboutUsController extends Controller
             ->getRepository('App:MessagesFromUsers')
             ->findAllQueryBuilder();
 
-        $adapter = new DoctrineORMAdapter($qb);
+        $adapter = new ArrayAdapter($qb);
         $pagerFanta = new Pagerfanta($adapter);
 
         // setting up maximum messages from users per page
@@ -73,7 +78,7 @@ class AboutUsController extends Controller
 
         return $this->render(
             'about_us/index.html.twig',
-            array('form' => $form->createView(), 'user' => $user, 'username' => $username, 'fanta' => $pagerFanta)
+            array('form' => $form->createView(), 'user' => $this->user, 'username' => $this->username, 'fanta' => $pagerFanta)
         );
     }
 }

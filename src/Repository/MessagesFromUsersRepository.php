@@ -52,6 +52,9 @@ class MessagesFromUsersRepository extends ServiceEntityRepository
     {
         // createQueryBuilder automatically selects all messages from users
         // alias uses in the rest of the query
-        return $this->createQueryBuilder('messages_from_users');
+        return $this->createQueryBuilder('messages_from_users')
+            ->orderBy('messages_from_users.id', 'DESC')
+            ->getQuery()
+            ->execute();
     }
 }
