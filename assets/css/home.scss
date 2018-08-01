@@ -1,0 +1,117 @@
+$break420px : 420px;
+$break320px : 320px;
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background: url('../uploads/images/mainHome.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+h1 {
+  text-align: center;
+
+  @media screen and (max-width: $break420px) {
+    font-size: 1.25rem;
+  }
+}
+
+section {
+  position: relative;
+}
+
+.search {
+  position: absolute;
+  top: 10%;
+  right: 2.5%;
+  width: 20%;
+
+  @media screen and (max-width: $break420px) {
+    width: 50%;
+  }
+}
+
+.search input {
+  background-color: #212529;
+}
+
+.search input::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.search input::-moz-placeholder {
+  color: #fff;
+}
+
+.search input::-ms-input-placeholder {
+  color: #fff;
+}
+
+.search input:-ms-input-placeholder {
+  color: #fff;
+}
+
+.search input::placeholder {
+  color: #fff;
+}
+
+.searchResultLink {
+  overflow-x: hidden;
+  display: block;
+  padding-top: 10px;
+  border-bottom: solid 1px #343a40;
+  color: black;
+}
+
+.searchResultLink:last-child {
+  padding-bottom: 10px;
+}
+
+.searchResultLink:hover {
+  text-decoration: none;
+  background-color: rgba(52, 58, 64, .5);
+  color: #fff;
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.flexRow__caption {
+  background-color: #212529;
+  color: #fff;
+  padding: 5px;
+  border-radius: 10px 10px;
+
+  p {
+    @media screen and (max-width: $break420px) {
+      font-size: 0.8rem;
+    }
+
+    @media screen and (max-width: $break320px) {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+nav {
+  color: #fff;
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}

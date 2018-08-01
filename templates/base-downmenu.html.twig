@@ -20,10 +20,12 @@
         <div class="container">
 
             {% if user == null %}
-                <a class="navbar-brand" href="{{ path('login') }}">Ввійти</a>
-                <a class="navbar-brand" href="{{ path('user_registration') }}">Зареєструватися</a>
+                <div class="signInUp">
+                    <a href="{{ path('login') }}">Ввійти</a>
+                    <a href="{{ path('user_registration') }}">Зареєструватися</a>
+                </div>
             {% else %}
-                <span class="nameOfUser">{{ username }}</span><a href="{{ path('logout') }}">Вийти</a>
+                <div class="userCaption"> {{ username }} <a href="{{ path('logout') }}">Вийти</a></div>
             {% endif %}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

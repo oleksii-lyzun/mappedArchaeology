@@ -3,7 +3,7 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/home/styles.css') }}"
+    <link rel="stylesheet" href="{{ asset('build/home.css') }}"
 {% endblock %}
 
 {% block body %}
@@ -11,10 +11,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
         <div class="container">
             {% if user == null %}
-                <a class="navbar-brand" href="{{ path('login') }}">Ввійти</a>
-                <a class="navbar-brand" href="{{ path('user_registration') }}">Зареєструватися</a>
+                <div class="signInUp">
+                    <a href="{{ path('login') }}">Ввійти</a>
+                    <a href="{{ path('user_registration') }}">Зареєструватися</a>
+                </div>
             {% else %}
-                {{ username }} <a href="{{ path('logout') }}">Вийти</a>
+                <div class="userCaption"> {{ username }} <a href="{{ path('logout') }}">Вийти</a></div>
             {% endif %}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,16 +55,20 @@
     <!-- Page Content -->
     <section>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1 class="mt-5">The Big Picture</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt voluptates rerum eveniet sapiente repellat esse, doloremque quod recusandae deleniti nostrum assumenda vel beatae sed aut modi nesciunt porro quisquam voluptatem.</p>
+            <div class="flexRow">
+                <div class="flexRow__caption">
+                    <h1>MappedArchaeology</h1>
+                    <p>
+                        Привіт!<br />
+                        Даний сайт є простим тестовим некомерційним проектом.<br />
+                        Розділи наповнені неактуальною інформацією.
+                    </p>
                 </div>
             </div>
         </div>
 
         <div class="form-group search">
-            <input type="text" class="form-control" id="searchAJAX" title="Search">
+            <input type="text" class="form-control" id="searchAJAX" title="Search" placeholder="Пошук">
         </div>
     </section>
 {% endblock %}

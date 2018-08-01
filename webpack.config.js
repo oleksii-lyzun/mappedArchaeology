@@ -16,7 +16,8 @@ Encore
     .addEntry('contactUs', './assets/js/contactUs.js')
     .addEntry('login', './assets/js/login.js')
     .addEntry('register', './assets/js/register.js')
-
+    .addEntry('home', './assets/js/home.js')
+    .addEntry('map', './assets/js/map.js')
 
     .enableBuildNotifications()
 

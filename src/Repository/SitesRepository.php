@@ -150,7 +150,6 @@ class SitesRepository extends ServiceEntityRepository
                 'nameUa' => $result[$i]->getSiteNameUa(),
                 'nameEn' => $result[$i]->getSiteNameEn(),
                 'descUa' => $result[$i]->getSiteShDescUa(),
-                'descEn' => $result[$i]->getSiteShDescEn(),
                 'isPublished' => $result[$i]->getIsPublished(),
                 'getLatitude' => $result[$i]->getLatitude(),
                 'getLongitude' => $result[$i]->getLongitude(),

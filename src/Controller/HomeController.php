@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Security;
 class HomeController extends Controller
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      * @param Security $security
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -27,8 +27,6 @@ class HomeController extends Controller
         } else {
             $username = null;
         }
-
-        dump($user);
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
