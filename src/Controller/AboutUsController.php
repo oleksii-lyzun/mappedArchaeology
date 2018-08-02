@@ -78,7 +78,11 @@ class AboutUsController extends Controller
 
         return $this->render(
             'about_us/index.html.twig',
-            array('form' => $form->createView(), 'user' => $this->user, 'username' => $this->username, 'fanta' => $pagerFanta)
+            array('form' => $form->createView(),
+                'user' => $this->user,
+                'username' => $this->username,
+                'fanta' => $pagerFanta,
+                'title' => 'Про нас')
         );
     }
 }

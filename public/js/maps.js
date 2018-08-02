@@ -43,7 +43,8 @@ function initMap() {
             document.getElementById('siteInfo').style.width = '20%';
 
             let parent = document.querySelector('.siteInfo-inner');
-            createSidebar(parent,
+            let parent2 = document.querySelector('.siteInfo__go');
+            createSidebar(parent, parent2,
                 SITES[i].nameUa,
                 SITES[i].nameEn,
                 SITES[i].getLatitude,
@@ -122,6 +123,7 @@ HERE IS A BLOCK OF CODE WITH SERVICE FUNCTIONS
 /**
  *
  * @param parent - parent div
+ * @param parent2
  * @param siteName - name of the site in Ukrainian
  * @param siteEnName - name of the site in English
  * @param lat - latitude
@@ -134,7 +136,7 @@ HERE IS A BLOCK OF CODE WITH SERVICE FUNCTIONS
  * @param id
  * This function creates a Sidebar with detailed information about the site
  */
-function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods, cultures, sh, id)
+function createSidebar(parent, parent2, siteName, siteEnName, lat, long, h, eras, periods, cultures, sh, id)
 {
     let h2 = document.createElement('h2');
     let pEnName = document.createElement('p');
@@ -174,7 +176,7 @@ function createSidebar(parent, siteName, siteEnName, lat, long, h, eras, periods
 
     //Append elements
     parent.appendChild(divI);
-    parent.appendChild(link);
+    parent2.appendChild(link);
     parent.appendChild(h2);
     parent.appendChild(pEnName);
     parent.appendChild(pLat);

@@ -1,6 +1,6 @@
 {% extends 'base-downmenu.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -14,6 +14,7 @@
     <!-- Container with detailed info about the site -->
     <div id="siteInfo">
         <div class="siteInfo-inner"></div>
+        <div class="siteInfo__go"></div>
     </div>
 
     <!-- Container with filters -->

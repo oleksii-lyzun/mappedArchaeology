@@ -40,7 +40,7 @@ class MapsController extends Controller
         $cultures = $repositoryCultures->getAllCultures();
 
         return $this->render('maps/index.html.twig', [
-            'controller_name' => 'MapsController',
+            'title' => 'Мапа',
             'sites' => $sites,
             'eras' => $eras,
             'periods' => $periods,

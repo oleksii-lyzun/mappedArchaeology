@@ -22,12 +22,13 @@ HERE IS CODE FOR SIDEBAR WITH DETAILED INFO ABOUT THE SITE
   height: 90.25%;
   background-color: #343a40;
   transition: width 2s;
-  overflow: auto;
 }
 
 .siteInfo-inner {
   position: relative;
-  height: 100%;
+  height: 90%;
+  margin-bottom: 20px;
+  overflow: auto;
 }
 
 .siteInfo-inner__close {
@@ -37,7 +38,7 @@ HERE IS CODE FOR SIDEBAR WITH DETAILED INFO ABOUT THE SITE
   right: 0;
 }
 
-.siteInfo-inner__go {
+.siteInfo__go {
   position: absolute;
   bottom: 0;
   margin: 0 auto;
