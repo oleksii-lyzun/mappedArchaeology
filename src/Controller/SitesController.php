@@ -72,18 +72,16 @@ class SitesController extends Controller
         $repository = $this->getDoctrine()->getRepository(Sites::class);
         $site = $repository->getOneSiteById($id);
 
-        if(!$site || !$site['isPublished'])
+        if(!$site || !$site->getIsPublished())
         {
             throw $this->createNotFoundException("Цієї пам'ятки не існує!");
         }
 
-        dump($site);
-
         return $this->render('sites/show.html.twig', [
-            'title' => $site['siteNameUa'],
-            'sites' => $site,
+            'title' => $site->getSiteNameUa(),
+            'site' => $site,
             'user' => $this->user,
-            'username' => $this->username
+            'username' => $this->username,
         ]);
     }
 }

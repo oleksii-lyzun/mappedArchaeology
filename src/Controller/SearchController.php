@@ -25,6 +25,11 @@ class SearchController extends Controller
             // answerFromSites can be array or null
             $answerFromSites = $this->getResultFromSitesEntity($userSearch);
 
+            if(empty($answerFromSites))
+            {
+                $answerFromSites = null;
+            }
+
             // Send back Response in JSON format
             return new Response(json_encode($answerFromSites, JSON_UNESCAPED_UNICODE));
         }

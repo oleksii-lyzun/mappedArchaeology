@@ -9,10 +9,10 @@
 
 {% block customBody %}
     <div class="container">
-        <h1>{{ sites['siteNameUa'] }} | {{ sites['siteNameEn'] }}</h1>
+        <h1>{{ site.siteNameUa }} | {{ site.siteNameEn }}</h1>
         <hr>
-        {% if sites['image'] %}
-            <img src="/uploads/images/sites/{{ sites['image'] }}" alt="{{ sites['image'] }}" />
+        {% if site.image %}
+            <img src="/uploads/images/sites/{{ site.image }}" alt="{{ site.siteNameUa }}" />
         {% else %}
             <img src="{{ asset('uploads/images/sites/imageNotFound.png') }}"/>
         {% endif %}
@@ -20,41 +20,41 @@
 
         <div class="characteristics">
             <h2>Характеристики</h2>
-            <p>Довгота: {{ sites['longitude'] }}</p>
-            <p>Широта: {{ sites['latitude'] }}</p>
+            <p>Довгота: {{ site.longitude }}</p>
+            <p>Широта: {{ site.latitude }}</p>
 
-            {% if sites['height'] %}
-                <p>Висота над рівнем моря: {{ sites['height'] }}</p>
+            {% if site.height %}
+                <p>Висота над рівнем моря: {{ site.height }}</p>
             {% else %}
                 <p>Висота над рівнем моря: невідома</p>
             {% endif %}
 
             <p>Ери:<br />
-                {% if sites['eras']|length == 0 %}
+                {% if site.era|length == 0 %}
                     <span>Невідомо</span>
                 {% else %}
-                    {% for eraItem in sites['eras'] %}
-                        {{ eraItem }}
+                    {% for era in site.era %}
+                        {{ era }}
                     {% endfor %}
                 {% endif %}
             </p>
 
             <p>Періоди:<br />
-                {% if sites['periods']|length == 0 %}
+                {% if site.period|length == 0 %}
                     <span>Невідомо</span>
                 {% else %}
-                    {% for periodItem in sites['periods'] %}
-                        {{ periodItem }}
+                    {% for period in site.period %}
+                        {{ period }}
                     {% endfor %}
                 {% endif %}
             </p>
 
             <p>Культури:<br />
-                {% if sites['cultures']|length == 0 %}
+                {% if site.culture|length == 0 %}
                     <span>Невідомо</span>
                 {% else %}
-                    {% for cultureItem in sites['cultures'] %}
-                        {{ cultureItem }}
+                    {% for culture in site.culture %}
+                        {{ culture }}
                     {% endfor %}
                 {% endif %}
             </p>
@@ -62,7 +62,7 @@
 
         <div class="description">
             <h2>Детальна інформація</h2>
-            {{ sites['description'] }}
+            {{ site.siteDescUa }}
         </div>
 
     <div id="disqus_thread"></div>
@@ -73,8 +73,8 @@
          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
         var disqus_config = function () {
-        this.page.url = '{{ url('app_sites_show', {'id' : sites['id']}) }}';
-        this.page.identifier = '{{ path('app_sites_show', {'id' : sites['id']}) }}';
+        this.page.url = '{{ url('app_sites_show', {'id' : site.id}) }}';
+        this.page.identifier = '{{ path('app_sites_show', {'id' : site.id}) }}';
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

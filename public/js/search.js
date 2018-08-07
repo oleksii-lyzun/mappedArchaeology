@@ -6,6 +6,8 @@ window.onload = function () {
     let searchDiv = searchField.parentElement;
     const URL = '/search';
 
+    let timeout;
+
 
     searchField.addEventListener('input', function () {
         let xhttp = new XMLHttpRequest();
@@ -16,38 +18,43 @@ window.onload = function () {
                 // Parse JSON response from server
                 let parsedJSON = JSON.parse(xhttp.responseText);
 
-                if(parsedJSON === null && searchField.value.length < 1)
-                {
-                    deleteChildDOMElementsExceptFirst(searchDiv);
-                    return;
-                }
-
-                // If parsedJSON not empty - render search results under searchField
-                if(parsedJSON)
-                {
-                    deleteChildDOMElementsExceptFirst(searchDiv);
-
-                    for(let i = 0; i < parsedJSON.length; i++)
-                    {
-                        createOneSearchResult(searchDiv, parsedJSON[i]);
-                    }
-                } else if(searchField.value.length > 0 && searchField.value.length <= 2)
-                {
-                    deleteChildDOMElementsExceptFirst(searchDiv);
-                    createOneSearchResult(searchDiv, 'Спробуйте ввести більше знаків', false);
-                }
-                else {
-                    deleteChildDOMElementsExceptFirst(searchDiv);
-                    createOneSearchResult(searchDiv, 'Вибачте, нічого не розкопали', false);
-                }
+                outputParsedJson(parsedJSON, searchDiv, searchField), 4000;
             }
         };
+
         xhttp.open("POST", URL, true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhttp.send(`userSearch=${this.value}`);
     })
 };
+
+function outputParsedJson(parsedJSON, searchDiv, searchField) {
+    if(parsedJSON === null && searchField.value.length < 1)
+    {
+        deleteChildDOMElementsExceptFirst(searchDiv);
+        return;
+    }
+
+    // If parsedJSON not empty - render search results under searchField
+    if(parsedJSON && searchField.value.length > 2)
+    {
+        deleteChildDOMElementsExceptFirst(searchDiv);
+
+        for(let i = 0; i < parsedJSON.length; i++)
+        {
+            createOneSearchResult(searchDiv, parsedJSON[i]);
+        }
+    } else if(searchField.value.length > 0 && searchField.value.length <= 2)
+    {
+        deleteChildDOMElementsExceptFirst(searchDiv);
+        createOneSearchResult(searchDiv, 'Спробуйте ввести більше знаків', false);
+    }
+    else {
+        deleteChildDOMElementsExceptFirst(searchDiv);
+        createOneSearchResult(searchDiv, 'Вибачте, нічого не розкопали', false);
+    }
+}
 
 /**
  *

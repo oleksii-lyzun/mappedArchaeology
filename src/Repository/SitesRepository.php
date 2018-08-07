@@ -50,40 +50,7 @@ class SitesRepository extends ServiceEntityRepository
 
     public function getOneSiteById($id)
     {
-        $unservicedResult = $this->find($id);
-
-        $result = [];
-
-        $result['id'] = $unservicedResult->getId();
-        $result['siteNameUa'] = $unservicedResult->getSiteNameUa();
-        $result['siteNameEn'] = $unservicedResult->getSiteNameEn();
-        $result['latitude'] = $unservicedResult->getLatitude();
-        $result['longitude'] = $unservicedResult->getLongitude();
-        $result['height'] = $unservicedResult->getHeight();
-        $result['image'] = $unservicedResult->getImage();
-        $result['isPublished'] = $unservicedResult->getIsPublished();
-        $result['description'] = $unservicedResult->getSiteDescUa();
-
-        $eraArray = $unservicedResult->getEra();
-        for($i = 0; $i < count($eraArray); $i++)
-        {
-            $result['eras'][] = $eraArray[$i]->getEra();
-        }
-
-        $periodArray = $unservicedResult->getPeriod();
-        for($i = 0; $i < count($periodArray); $i++)
-        {
-            $result['periods'][] = $periodArray[$i]->getPeriod();
-        }
-
-        $cultureArray = $unservicedResult->getCulture();
-        for($i = 0; $i < count($cultureArray); $i++)
-        {
-            $result['cultures'][] = $cultureArray[$i]->getCulture();
-        }
-
-        return $result;
-
+        return $this->find($id);
     }
 
     /**
