@@ -34,6 +34,9 @@ class MapsController extends Controller
         $repositoryCultures = $this->getDoctrine()->getRepository(Cultures::class);
 
         $allSites = $repository->getAllSitesWithTimes();
+
+        dump($allSites);
+
         $sites = json_encode($allSites, JSON_UNESCAPED_UNICODE);
         $eras = $repositoryEras->getAllEras();
         $periods = $repositoryPeriods->getAllPeriods();

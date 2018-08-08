@@ -1,33 +1,49 @@
-window.onload = function () {
-    // Input type=text
-    let searchField = document.getElementById('searchAJAX');
+/**
+ * @type {HTMLElement}
+ * Input type=text
+ */
+let searchField = document.getElementById('searchAJAX');
 
-    // parentElement for searchField
-    let searchDiv = searchField.parentElement;
-    const URL = '/search';
+/**
+ * @type {HTMLElement}
+ * parentElement for searchField
+ */
+let searchDiv = searchField.parentElement;
 
-    let timeout;
+let timeout;
 
+const URL = '/search';
 
-    searchField.addEventListener('input', function () {
-        let xhttp = new XMLHttpRequest();
+/**
+ *
+ */
+searchField.addEventListener('input', function () {
 
-        xhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
+    clearTimeout(timeout);
 
-                // Parse JSON response from server
-                let parsedJSON = JSON.parse(xhttp.responseText);
+    let userSearch = this.value;
 
-                outputParsedJson(parsedJSON, searchDiv, searchField), 4000;
-            }
-        };
+    timeout = setTimeout(
+        function () {
+            let xhttp = new XMLHttpRequest();
 
-        xhttp.open("POST", URL, true);
-        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhttp.send(`userSearch=${this.value}`);
-    })
-};
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+
+                    // Parse JSON response from server
+                    let parsedJSON = JSON.parse(xhttp.responseText);
+
+                    outputParsedJson(parsedJSON, searchDiv, searchField);
+                }
+            };
+
+            xhttp.open("POST", URL, true);
+            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhttp.send(`userSearch=${userSearch}`);
+        }, 3000
+    );
+});
 
 function outputParsedJson(parsedJSON, searchDiv, searchField) {
     if(parsedJSON === null && searchField.value.length < 1)

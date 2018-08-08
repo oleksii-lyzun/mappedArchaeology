@@ -4,7 +4,7 @@ let map;
  * Array of sites, that comes from backend
  */
 const SITES = JSON.parse(document.getElementById('map').dataset.sites);
-
+console.log(SITES);
 /**
  * Array with all created markers.
  * @type {Array}
