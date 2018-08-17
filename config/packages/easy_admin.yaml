@@ -57,5 +57,54 @@ easy_admin:
           Books:
             class: App\Entity\Books
 
+            list:
+              fields:
+              - { property: 'id' }
+              - { property: 'authors' }
+              - { property: 'title' }
+              - { property: 'is_active' }
+              - { property: 'image', type: 'image', base_path: '%app.path.books_images%' }
+
+            show:
+              fields:
+              - { property: 'image', type: 'image', base_path: '%app.path.books_images%' }
+
+            form:
+              fields:
+              - 'authors'
+              - 'title'
+              - 'publisher'
+              - 'publishedYear'
+              - 'is_active'
+              - 'annotation'
+              - 'link'
+              - 'image'
+              - { property: 'imageFile', type: 'vich_image' }
+
           Articles:
             class: App\Entity\Articles
+
+            list:
+              fields:
+              - { property: 'id' }
+              - { property: 'authors' }
+              - { property: 'title' }
+              - { property: 'isActive' }
+              - { property: 'image', type: 'image', base_path: '%app.path.articles_images%' }
+
+            show:
+              fields:
+              - { property: 'image', type: 'image', base_path: '%app.path.articles_images%' }
+
+            form:
+              fields:
+              - 'authors'
+              - 'title'
+              - 'journal'
+              - 'publisher'
+              - 'publishedYear'
+              - 'isActive'
+              - 'annotation'
+              - 'link'
+              - 'image'
+              - { property: 'imageFile', type: 'vich_image' }

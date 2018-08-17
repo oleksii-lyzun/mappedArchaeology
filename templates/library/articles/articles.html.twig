@@ -8,59 +8,50 @@
 {% endblock %}
 
 {% block customBody %}
-    <div class="container">
-        <h1>Статті в періодичних виданнях</h1>
+    <h1>Статті</h1>
 
+    <div class="articles">
         {% for item in fanta.currentPageResults %}
-            <div class="oneRecord">
-                <p class="oneRecord__authors">
-                    <span class="oneRecord__authors--caption fBold">Автор(и):</span> {{item.authors}}
-                </p>
+            <div class="article">
+                <div class="article__title"><p>{{ item.title }}</p></div>
+                <div class="article__image">
+                    <p><img src="/uploads/images/articles/{{ item.image }}" alt="{{ item.title }}" /></p>
+                </div>
+                <div class="article__authors"><p>{{ item.authors }}</p></div>
+                <div class="article__publisher">
+                    <p>Видавництво:
+                        {% if item.publisher == true %}
+                            {{ item.publisher }}
+                        {% else %}
+                            Немає інформації
+                        {% endif %}
+                    </p>
+                </div>
 
-                <p class="oneRecord__title">
-                    <span class="oneRecord__title--caption fBold">Назва:</span> {{ item.title }}
-                </p>
+                <div class="article__year">
+                    <p>Рік видання:
+                        {% if item.publisher == true %}
+                            {{ item.publishedYear }}
+                        {% else %}
+                            Немає інформації
+                        {% endif %}
+                    </p>
+                </div>
 
-                <p class="oneRecord__journal">
-                    <span class="oneRecord__journal--caption fBold">Видання:</span> {{ item.journal }}
-                </p>
-
-                <p class="oneRecord__publisher">
-                    <span class="oneRecord__publisher--caption fBold">Видавництво:</span>
-                    {% if item.publisher == true %}
-                        {{ item.publisher }}
-                    {% else %}
-                        Немає інформації
-                    {% endif %}
-                </p>
-
-                <p class="oneRecord__year">
-                    <span class="oneRecord__year--caption fBold">Рік видання:</span> {{ item.publishedYear }}
-                </p>
-
-                <p class="oneRecord__link">
-                    <span class="oneRecord_link--caption fBold">Посилання: </span>
-                    {% if item.link == true %}
-                        {{ item.link }}
-                    {% else %}
-                        Посилання відсутнє
-                    {% endif %}
-                </p>
-
-                <p class="oneRecord__annotation">
-                    <span class="oneRecord__annotation--caption fBold">Анотація: </span> {{ item.annotation }}
-                </p>
+                <div class="article__link">
+                    <a href="/library/articles/show/{{ item.id }}">Переглянути</a>
+                </div>
             </div>
         {% endfor %}
-
-        {% if fanta.currentPageResults == false %}
-            <div class="noArticles">
-                <p>Вибачте, у цій категорії ще немає статей!</p>
-            </div>
-        {% else %}
-            <div class="pagination">
-                {{ pagerfanta(fanta, 'twitter_bootstrap4') }}
-            </div>
-        {% endif %}
     </div>
+
+    {% if fanta.currentPageResults == false %}
+        <div class="noArticles">
+            <p>Вибачте, у цій категорії ще немає статей!</p>
+        </div>
+    {% else %}
+        <div class="pagination">
+            {{ pagerfanta(fanta, 'twitter_bootstrap4') }}
+        </div>
+    {% endif %}
 {% endblock %}

@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BooksRepository")
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Books
 {
@@ -50,6 +54,29 @@ class Books
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $link;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="books_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    public function __construct()
+    {
+        $this->updatedAt = new \DateTime('now');
+    }
 
     public function getId()
     {
@@ -159,5 +186,63 @@ class Books
     public function setLink($link): void
     {
         $this->link = $link;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+
+    /**
+     * @param File|null $image
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return string
+     * : strung
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @param \DateTime $updatedAt\
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

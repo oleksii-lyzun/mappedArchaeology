@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Guard\AuthenticatorInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -44,7 +46,7 @@ class SecurityController extends Controller
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param AuthorizationCheckerInterface $authChecker
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response | \Symfony\Component\Security\Guard\AuthenticatorInterface
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, AuthorizationCheckerInterface $authChecker)
     {
@@ -74,7 +76,9 @@ class SecurityController extends Controller
             // ... do any other work - like sending them an emails, etc
             // maybe set a "flash" success message for the user
 
+
             return $this->redirectToRoute('home');
+
         }
 
         return $this->render(

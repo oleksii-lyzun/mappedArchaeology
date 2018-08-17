@@ -24,16 +24,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/home">Головна
-                            <span class="sr-only">(current)</span>
-                        </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home') }}">Головна</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('sites') }}">Пам'ятки</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/maps">Мапа</a>
+                        <a class="nav-link" href="{{ path('maps') }}">Мапа</a>
                     </li>
                     <div class="dropup">
                         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

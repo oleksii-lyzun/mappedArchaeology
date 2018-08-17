@@ -1,4 +1,4 @@
-.container
+/*.container
 {
   h1 {
     text-align: center;
@@ -22,4 +22,116 @@
 
 .fBold {
   font-weight: bold;
+}*/
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+$break1024px : 1024px;
+$break800px : 800px;
+$break600px : 600px;
+$break420px : 420px;
+
+.books {
+  padding: 0 5%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+
+  @media screen and (max-width: $break1024px) {
+    padding: 0;
+  }
+}
+
+.book {
+  margin: 1.5% 1.5%;
+  width: 25%;
+
+  @media screen and (max-width: $break600px) {
+    width: 45%;
+  }
+
+  @media screen and (max-width: $break420px) {
+    width: 95%;
+  }
+
+  &__image {
+    display: table;
+    width: 100%;
+    min-height: 300px;
+    max-height: 300px;
+    border-right: 1px solid #6c757d;
+    border-left: 1px solid #6c757d;
+
+    @media screen and (max-width: $break800px) {
+      min-height: 250px;
+      max-height: 250px;
+    }
+
+    @media screen and (max-width: $break420px) {
+      min-height: 300px;
+      max-height: 300px;
+    }
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    img {
+      display: block;
+      max-width: 95%;
+      max-height: 300px;
+      margin: 0 auto;
+
+      @media screen and (max-width: $break800px) {
+        max-height: 250px;
+      }
+
+      @media screen and (max-width: $break420px) {
+        max-height: 300px;
+      }
+    }
+  }
+
+  &__title, &__authors, &__publisher, &__year {
+    display: table;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: #343a40;
+    color: #ffffff;
+    margin: 2px 0 0 0;
+    padding: 0;
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  &__link {
+    display: table;
+    width: 100%;
+    height: 25px;
+    text-align: center;
+    background-color: cornflowerblue;
+    margin: 2px 0 0 0;
+    padding: 0;
+
+    a {
+      display: table-cell;
+      vertical-align: middle;
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+}
+
+.pagination {
+  margin: 0 auto 30px auto;
 }

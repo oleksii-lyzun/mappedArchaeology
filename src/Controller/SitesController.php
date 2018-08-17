@@ -12,8 +12,15 @@ use Symfony\Component\Security\Core\Security;
 
 class SitesController extends Controller
 {
+    /**
+     * @var null|\Symfony\Component\Security\Core\User\UserInterface
+     */
     private $user;
-    private $username;
+
+    /**
+     * @var null|string
+     */
+    private $username = null;
 
     public function __construct(Security $security)
     {
@@ -24,8 +31,6 @@ class SitesController extends Controller
         if($this->user)
         {
             $this->username = $this->user->getUsername();
-        } else {
-            $username = null;
         }
     }
 

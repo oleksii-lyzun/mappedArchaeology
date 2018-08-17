@@ -41,7 +41,7 @@ searchField.addEventListener('input', function () {
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
             xhttp.send(`userSearch=${userSearch}`);
-        }, 3000
+        }, 1500
     );
 });
 

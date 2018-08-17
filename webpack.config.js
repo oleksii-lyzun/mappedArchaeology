@@ -18,6 +18,8 @@ Encore
     .addEntry('register', './assets/js/register.js')
     .addEntry('home', './assets/js/home.js')
     .addEntry('map', './assets/js/map.js')
+    .addEntry('articleShow', './assets/js/articleShow.js')
+    .addEntry('bookShow', './assets/js/bookShow.js')
 
     .enableBuildNotifications()
 

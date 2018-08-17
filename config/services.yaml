@@ -3,6 +3,8 @@
 parameters:
     locale: 'en'
     app.path.sites_images: ./uploads/images/sites
+    app.path.articles_images: ./uploads/images/articles
+    app.path.books_images: ./uploads/images/books
 
 services:
     # default configuration for services in *this* file

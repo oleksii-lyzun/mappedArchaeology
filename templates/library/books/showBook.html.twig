@@ -1,0 +1,66 @@
+{% extends 'base-downmenu.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/bookShow.css') }}"/>
+{% endblock %}
+
+{% block customBody %}
+    <main class="book container">
+        <h1>{{ book.title }}</h1>
+        <div class="book__header">
+            <div class="book__header--details">
+                <p>Автор(и): {{ book.authors }}</p>
+
+                {% if book.publisher == true %}
+                    <p>Видавництво: {{ book.publisher }}</p>
+                {% else %}
+                    <p>Видавництво: невідоме</p>
+                {% endif %}
+
+                {% if book.publishedYear == true %}
+                    <p>Рік публікації: {{ book.publishedYear }}</p>
+                {% else %}
+                    <p>Рік публікації: невідомий</p>
+                {% endif %}
+
+                {% if book.link == true %}
+                    <p>Посилання на книгу: {{ book.link }}</p>
+                {% else %}
+                    <p>Посилання на книгу: недоступне</p>
+                {% endif %}
+
+                {% if book.annotation == true %}
+                    <p>{{ book.annotation }}</p>
+                {% endif %}
+            </div>
+            <div class="book__header--picture">
+                <img src="/uploads/images/books/{{ book.image }}" alt="{{ book.title }}">
+            </div>
+        </div>
+
+        <div id="disqus_thread"></div>
+        <script>
+
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+            var disqus_config = function () {
+                this.page.url = '{{ url('app_bookslibrary_show', {'id' : book.id}) }}';
+                this.page.identifier = '{{ path('app_bookslibrary_show', {'id' : book.id}) }}';
+            };
+
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://mappedarchaeology.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        
+    </main>
+{% endblock %}
